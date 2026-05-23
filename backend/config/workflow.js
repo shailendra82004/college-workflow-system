@@ -1,9 +1,3 @@
-/**
- * STUDENT workflow — requests submitted by STUDENT
- * Simple   (1 step):  LEAVE, LAB_ACCESS, ASSIGNMENT_EXT, LIBRARY_EXT
- * Medium   (2 steps): FEE_CONCESSION, CERTIFICATE, SCHOLARSHIP, COURSE_CHANGE, EXAM_REEVAL
- * Complex  (3 steps): PROJECT, EQUIPMENT, RESEARCH, INDUSTRIAL_VISIT, OTHER
- */
 const WORKFLOW_MAP = {
   // Simple
   LEAVE:            ['COORDINATOR'],
@@ -24,12 +18,7 @@ const WORKFLOW_MAP = {
   OTHER:            ['COORDINATOR', 'HOD', 'DIRECTOR'],
 }
 
-/**
- * COORDINATOR workflow — requests submitted by COORDINATOR
- * Coordinator cannot approve their own request, so starts at HOD.
- * Simple (1 step):  LEAVE, LAB_ACCESS        → HOD only
- * Others (2 steps): everything else           → HOD → DIRECTOR
- */
+
 const COORDINATOR_WORKFLOW_MAP = {
   LEAVE:            ['HOD'],
   LAB_ACCESS:       ['HOD'],
@@ -42,11 +31,7 @@ const COORDINATOR_WORKFLOW_MAP = {
   OTHER:            ['HOD', 'DIRECTOR'],
 }
 
-/**
- * HOD workflow — requests submitted by HOD
- * HOD cannot approve their own request, so starts at DIRECTOR.
- * All types → DIRECTOR only
- */
+
 const HOD_WORKFLOW_MAP = {
   LEAVE:            ['DIRECTOR'],
   LAB_ACCESS:       ['DIRECTOR'],
@@ -59,13 +44,11 @@ const HOD_WORKFLOW_MAP = {
   OTHER:            ['DIRECTOR'],
 }
 
-/**
- * Returns the correct workflow map for a given submitter role.
- */
+
 function getWorkflowMap(submitterRole) {
   if (submitterRole === 'COORDINATOR') return COORDINATOR_WORKFLOW_MAP
   if (submitterRole === 'HOD')         return HOD_WORKFLOW_MAP
-  return WORKFLOW_MAP // STUDENT (default)
+  return WORKFLOW_MAP 
 }
 
 module.exports = { WORKFLOW_MAP, COORDINATOR_WORKFLOW_MAP, HOD_WORKFLOW_MAP, getWorkflowMap }

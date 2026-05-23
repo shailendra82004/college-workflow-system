@@ -52,21 +52,7 @@ CREATE TABLE IF NOT EXISTS approval_history (
   CONSTRAINT fk_history_actor   FOREIGN KEY (actor_id)   REFERENCES users(id)
 );
 
--- ─────────────────────────────────────────────
--- Substitutes — HOD assigns a substitute for an absent coordinator
--- ─────────────────────────────────────────────
-CREATE TABLE IF NOT EXISTS substitutes (
-  id                    INT AUTO_INCREMENT PRIMARY KEY,
-  absent_coordinator_id INT NOT NULL,           -- who is absent
-  substitute_id         INT NOT NULL,           -- who covers for them
-  assigned_by           INT NOT NULL,           -- HOD who assigned
-  department            ENUM('CSE','ECE','MECH','CIVIL','EEE','IT') NOT NULL,
-  created_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_sub_absent  FOREIGN KEY (absent_coordinator_id) REFERENCES users(id),
-  CONSTRAINT fk_sub_sub     FOREIGN KEY (substitute_id)         REFERENCES users(id),
-  CONSTRAINT fk_sub_hod     FOREIGN KEY (assigned_by)           REFERENCES users(id),
-  UNIQUE KEY unique_absent (absent_coordinator_id)  -- one substitute per coordinator
-);
+
 
 -- ─────────────────────────────────────────────
 -- All passwords are bcrypt hash of "123"
@@ -90,14 +76,7 @@ INSERT INTO users (username, name, password, role, department) VALUES
   ('coordinator_eee',   'Asst. Prof. Nupur Modh',   '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'EEE'),
   ('coordinator_it',    'Asst. Prof. Mukesh Azad',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'IT');
 
--- Substitute Coordinators — one per department (password: 123)
-INSERT INTO users (username, name, password, role, department) VALUES
-  ('sub_coordinator_cse',   'Asst. Prof. Rahul Sharma',   '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'CSE'),
-  ('sub_coordinator_ece',   'Asst. Prof. Priya Verma',    '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'ECE'),
-  ('sub_coordinator_mech',  'Asst. Prof. Amit Tiwari',    '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'MECH'),
-  ('sub_coordinator_civil', 'Asst. Prof. Neha Gupta',     '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'CIVIL'),
-  ('sub_coordinator_eee',   'Asst. Prof. Vikram Singh',   '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'EEE'),
-  ('sub_coordinator_it',    'Asst. Prof. Anjali Mishra',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'IT');
+
 
 -- HODs 
 INSERT INTO users (username, name, password, role, department) VALUES

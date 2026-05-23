@@ -9,10 +9,8 @@ import Requests from "./components/Requests"
 import RequestDetail from "./components/RequestDetail"
 import ClassRequests from "./components/ClassRequests"
 import AllDepartments from "./components/AllDepartments"
-import SubstituteManager from "./components/SubstituteManager"
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -23,7 +21,6 @@ function App() {
         <Route path="/requests/:id" element={<RequestDetail />} />
         <Route path="/class-requests" element={<ClassRequests />} />
         <Route path="/all-departments" element={<AllDepartments />} />
-        <Route path="/substitutes" element={<SubstituteManager />} />
       </Routes>
     </BrowserRouter>
   )

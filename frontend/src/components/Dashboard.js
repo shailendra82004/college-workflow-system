@@ -82,8 +82,8 @@ export default function Dashboard() {
           <div className="db-stat-label">⚡ Pending Your Approval</div>
         </div>
 
-        {/* 3 action cards — add 4th for HOD */}
-        <div className="db-action-grid" style={{ gridTemplateColumns: role === 'HOD' ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr" }}>
+        {/* 3 action cards */}
+        <div className="db-action-grid" style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
 
           <Link to="/requests" className="db-action-card">
             <div className="db-action-icon db-icon-blue" style={{ fontSize: "20px" }}>✔</div>
@@ -102,14 +102,6 @@ export default function Dashboard() {
             <h3>📝 Submit Request</h3>
             <p>Create coordination and administrative requests</p>
           </Link>
-
-          {role === 'HOD' && (
-            <Link to="/substitutes" className="db-action-card">
-              <div className="db-action-icon db-icon-blue" style={{ fontSize: "20px" }}>🔄</div>
-              <h3>🔄 Substitute Manager</h3>
-              <p>Assign a substitute coordinator when someone is absent</p>
-            </Link>
-          )}
 
         </div>
 

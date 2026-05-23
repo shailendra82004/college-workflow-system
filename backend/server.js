@@ -7,7 +7,6 @@ const path = require("path")
 
 const authRoutes = require("./routes/auth")
 const requestRoutes = require("./routes/requests")
-const substituteRoutes = require("./routes/substitutes")
 
 const app = express()
 
@@ -38,9 +37,8 @@ app.use(session({
 
 app.use("/uploads",express.static("uploads"))
 
-app.use("/api/auth",        authRoutes)
-app.use("/api/requests",   requestRoutes)
-app.use("/api/substitutes",substituteRoutes)
+app.use("/api/auth",      authRoutes)
+app.use("/api/requests", requestRoutes)
 
 const PORT = process.env.PORT || 5000
 
