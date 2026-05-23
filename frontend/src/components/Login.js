@@ -85,7 +85,7 @@ export default function Login() {
         </div>
 
         <button className="btn" onClick={login} disabled={loading}>
-          {loading ? "⏳ Signing in..." : "🔐 Sign In"}
+          {loading ? "Signing in..." : "Sign In"}
         </button>
 
         {error && (

@@ -63,16 +63,6 @@ All passwords are `123`.
 | coordinator_eee | Asst. Prof. Nupur Modh | EEE |
 | coordinator_it | Asst. Prof. Mukesh Azad | IT |
 
-### Substitute Coordinators
-| Username | Name | Department |
-|---|---|---|
-| sub_coordinator_cse | Asst. Prof. Rahul Sharma | CSE |
-| sub_coordinator_ece | Asst. Prof. Priya Verma | ECE |
-| sub_coordinator_mech | Asst. Prof. Amit Tiwari | MECH |
-| sub_coordinator_civil | Asst. Prof. Neha Gupta | CIVIL |
-| sub_coordinator_eee | Asst. Prof. Vikram Singh | EEE |
-| sub_coordinator_it | Asst. Prof. Anjali Mishra | IT |
-
 ### HODs
 | Username | Name | Department |
 |---|---|---|
@@ -128,7 +118,6 @@ All passwords are `123`.
 - Session-based authentication with bcrypt password hashing
 - Role-aware dashboards — Student / Coordinator / HOD / Director each see a different layout
 - Separate request type dropdowns for students, coordinators, and HODs
-- Priority levels: Low, Medium, High, Urgent
 - Quick Approve / Quick Reject from pending approvals table
 - Approve/Reject modal with comment input
 - Approval history timeline on every request detail page
@@ -138,19 +127,6 @@ All passwords are `123`.
 - File attachment support on requests
 - Self-approval prevention — users cannot approve their own requests
 - Department isolation — coordinators and HODs can only act on their own department
-- **Substitute Coordinator** — HOD can assign a substitute coordinator when someone is absent. Substitute sees and can approve the absent coordinator's pending requests. Shown as "(Substitute)" on request detail page.
-
----
-
-## Substitute Coordinator Feature
-
-When a coordinator is absent, the HOD can assign a substitute:
-
-1. Login as HOD (e.g. `hod_cse` / `123`)
-2. Click **Substitute Manager** on the dashboard
-3. Select the absent coordinator and the substitute from the dropdowns
-4. Click Assign — the substitute immediately gains access to the absent coordinator's pending requests
-5. When the coordinator returns, click Remove to end the substitution
 
 ---
 
@@ -174,14 +150,6 @@ When a coordinator is absent, the HOD can assign a substitute:
 | POST | /api/requests/:id/approve | Approve a request |
 | POST | /api/requests/:id/reject | Reject a request |
 
-### Substitutes
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | /api/substitutes | Get current substitutes for dept |
-| GET | /api/substitutes/coordinators | List coordinators in dept |
-| POST | /api/substitutes | Assign a substitute |
-| DELETE | /api/substitutes/:absentId | Remove a substitute |
-
 ---
 
 ## Project Structure
@@ -199,8 +167,7 @@ When a coordinator is absent, the HOD can assign a substitute:
 │   │   └── upload.js          # File upload middleware (multer)
 │   ├── routes/
 │   │   ├── auth.js            # Login / logout / me
-│   │   ├── requests.js        # All request endpoints
-│   │   └── substitutes.js     # Substitute coordinator endpoints
+│   │   └── requests.js        # All request endpoints
 │   ├── db.js                  # MySQL connection pool
 │   └── server.js              # Express app entry point
 │
@@ -213,8 +180,7 @@ When a coordinator is absent, the HOD can assign a substitute:
         │   ├── Requests.js
         │   ├── RequestDetail.js
         │   ├── ClassRequests.js
-        │   ├── AllDepartments.js
-        │   └── SubstituteManager.js
+        │   └── AllDepartments.js
         ├── services/
         │   └── api.js         # Axios instance
         └── App.js             # React Router routes

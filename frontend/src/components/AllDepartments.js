@@ -20,7 +20,6 @@ const TYPE_LABELS = {
 }
 
 const DEPARTMENTS = ["CSE", "ECE", "MECH", "CIVIL", "EEE", "IT"]
-const PRIORITY_ICON = { LOW: "🟢", MEDIUM: "🟡", HIGH: "🔴", URGENT: "🚨" }
 
 function displayStatus(s) { return s === "ESCALATED" ? "PENDING" : s }
 function displayStatusClass(s) { return s === "ESCALATED" ? "pending" : s?.toLowerCase() }
@@ -50,16 +49,16 @@ export default function AllDepartments() {
 
       {/* Back button */}
       <div className="pa-topbar">
-        <Link to="/dashboard" className="pa-back-btn">← 🏠 Back to Dashboard</Link>
+        <Link to="/dashboard" className="pa-back-btn">Back to Dashboard</Link>
       </div>
 
       {/* Header card */}
       <div className="pa-header">
         <div>
-          <h1>🏢 Department Requests</h1>
+          <h1>Department Requests</h1>
           <p>All requests across all departments</p>
         </div>
-        <Link to="/dashboard" className="pa-dash-btn">🏠 Dashboard</Link>
+        <Link to="/dashboard" className="pa-dash-btn">Dashboard</Link>
       </div>
 
       {/* Department filter tabs */}
@@ -86,15 +85,14 @@ export default function AllDepartments() {
             <table className="pa-table">
               <thead>
                 <tr>
-                  <th>🆔 ID</th>
-                  <th>📄 TYPE</th>
-                  <th>🏢 DEPT</th>
-                  <th>👤 SUBMITTED BY</th>
-                  <th>🚩 PRIORITY</th>
-                  <th>📊 STATUS</th>
-                  <th>👥 CURRENT APPROVER</th>
-                  <th>📅 CREATED</th>
-                  <th>⚡ ACTIONS</th>
+                  <th>ID</th>
+                  <th>TYPE</th>
+                  <th>DEPT</th>
+                  <th>SUBMITTED BY</th>
+                  <th>STATUS</th>
+                  <th>CURRENT APPROVER</th>
+                  <th>CREATED</th>
+                  <th>ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
@@ -107,11 +105,6 @@ export default function AllDepartments() {
                     </td>
                     <td>{r.created_by_name || r.created_by_username}</td>
                     <td>
-                      <span className={`pa-priority pa-priority-${r.priority?.toLowerCase()}`}>
-                        {PRIORITY_ICON[r.priority]} {r.priority}
-                      </span>
-                    </td>
-                    <td>
                       <span className={`pa-status pa-status-${displayStatusClass(r.status)}`}>
                         {displayStatus(r.status)}
                       </span>
@@ -121,7 +114,7 @@ export default function AllDepartments() {
                     </td>
                     <td>{formatDate(r.created_at)}</td>
                     <td>
-                      <Link to={`/requests/${r.id}`} className="pa-btn-view">👁 View</Link>
+                      <Link to={`/requests/${r.id}`} className="pa-btn-view">View</Link>
                     </td>
                   </tr>
                 ))}

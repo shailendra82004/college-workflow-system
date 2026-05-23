@@ -20,7 +20,7 @@ router.post(
   requireRole('STUDENT', 'COORDINATOR', 'HOD', 'DIRECTOR'),
   upload.single('document'),
   async (req, res) => {
-    const { title, description, type, priority } = req.body
+    const { title, description, type } = req.body
 
     // Validate required fields
     if (!title || !description || !type) {
@@ -47,9 +47,9 @@ router.post(
       const startingRole = map[type][0]
 
       const result = await query(
-        `INSERT INTO requests (title, description, type, priority, status, current_role, department, document, created_by)
-         VALUES (?, ?, ?, ?, 'PENDING', ?, ?, ?, ?)`,
-        [title, description, type, priority || 'MEDIUM', startingRole, department, document, created_by]
+        `INSERT INTO requests (title, description, type, status, current_role, department, document, created_by)
+         VALUES (?, ?, ?, 'PENDING', ?, ?, ?, ?)`,
+        [title, description, type, startingRole, department, document, created_by]
       )
 
       const [created] = await query(
@@ -294,7 +294,7 @@ router.post(
   }
 )
 
-// ─── Task 6.3: POST /api/requests/:id/reject ────────────────────────────────
+//  POST /api/requests/:id/reject 
 
 router.post(
   '/:id/reject',

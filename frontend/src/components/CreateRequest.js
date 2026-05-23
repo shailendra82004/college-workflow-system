@@ -5,106 +5,97 @@ import api from "../services/api"
 
 const STUDENT_REQUEST_TYPES = [
   {
-    group: "📋 Simple Requests (Coordinator Only)",
+    group: "Simple Requests (Coordinator Only)",
     options: [
-      { value: "LEAVE",              label: "🏖️ Leave Request" },
-      { value: "ASSIGNMENT_EXT",     label: "📚 Assignment Extension" },
-      { value: "LAB_ACCESS",         label: "🔬 Lab Access Request" },
-      { value: "LIBRARY_EXT",        label: "📖 Library Book Extension" },
+      { value: "LEAVE",              label: "Leave Request" },
+      { value: "ASSIGNMENT_EXT",     label: "Assignment Extension" },
+      { value: "LAB_ACCESS",         label: "Lab Access Request" },
+      { value: "LIBRARY_EXT",        label: "Library Book Extension" },
     ]
   },
   {
-    group: "📝 Medium Requests (Coordinator → HOD)",
+    group: "Medium Requests (Coordinator to HOD)",
     options: [
-      { value: "FEE_CONCESSION",     label: "💰 Fee Concession" },
-      { value: "CERTIFICATE",        label: "📜 Transfer Certificate" },
-      { value: "SCHOLARSHIP",        label: "🎓 Scholarship Application" },
-      { value: "COURSE_CHANGE",      label: "🔄 Course Change Request" },
-      { value: "EXAM_REEVAL",        label: "📊 Exam Re-evaluation" },
+      { value: "FEE_CONCESSION",     label: "Fee Concession" },
+      { value: "CERTIFICATE",        label: "Transfer Certificate" },
+      { value: "SCHOLARSHIP",        label: "Scholarship Application" },
+      { value: "COURSE_CHANGE",      label: "Course Change Request" },
+      { value: "EXAM_REEVAL",        label: "Exam Re-evaluation" },
     ]
   },
   {
-    group: "🚀 Complex Requests (Coordinator → HOD → Director)",
+    group: "Complex Requests (Coordinator to HOD to Director)",
     options: [
-      { value: "PROJECT",            label: "🚀 Major Project Approval" },
-      { value: "EQUIPMENT",          label: "🔧 Equipment Purchase Request" },
-      { value: "RESEARCH",           label: "🔭 Research Proposal" },
-      { value: "INDUSTRIAL_VISIT",   label: "🏭 Industrial Visit Approval" },
+      { value: "PROJECT",            label: "Major Project Approval" },
+      { value: "EQUIPMENT",          label: "Equipment Purchase Request" },
+      { value: "RESEARCH",           label: "Research Proposal" },
+      { value: "INDUSTRIAL_VISIT",   label: "Industrial Visit Approval" },
     ]
   },
   {
-    group: "📌 Other",
+    group: "Other",
     options: [
-      { value: "OTHER",              label: "📌 Other Request" },
+      { value: "OTHER",              label: "Other Request" },
     ]
   },
 ]
 
 const TEACHER_REQUEST_TYPES = [
   {
-    group: "📋 Simple Requests (HOD Only)",
+    group: "Simple Requests (HOD Only)",
     options: [
-      { value: "LEAVE",              label: "🏖️ Leave Request" },
-      { value: "LAB_ACCESS",         label: "🔬 Lab Access Request" },
+      { value: "LEAVE",              label: "Leave Request" },
+      { value: "LAB_ACCESS",         label: "Lab Access Request" },
     ]
   },
   {
-    group: "📝 Medium Requests (HOD → Director)",
+    group: "Medium Requests (HOD to Director)",
     options: [
-      { value: "EQUIPMENT",          label: "🔧 Equipment Purchase Request" },
-      { value: "COURSE_CHANGE",      label: "🔄 Course / Syllabus Change" },
-      { value: "CERTIFICATE",        label: "📜 Experience Certificate" },
+      { value: "EQUIPMENT",          label: "Equipment Purchase Request" },
+      { value: "COURSE_CHANGE",      label: "Course / Syllabus Change" },
+      { value: "CERTIFICATE",        label: "Experience Certificate" },
     ]
   },
   {
-    group: "🚀 Complex Requests (HOD → Director)",
+    group: "Complex Requests (HOD to Director)",
     options: [
-      { value: "RESEARCH",           label: "🔭 Research Proposal" },
-      { value: "INDUSTRIAL_VISIT",   label: "🏭 Industrial Visit Approval" },
-      { value: "PROJECT",            label: "🚀 Major Project / Lab Setup" },
-      { value: "OTHER",              label: "📌 Other Request" },
+      { value: "RESEARCH",           label: "Research Proposal" },
+      { value: "INDUSTRIAL_VISIT",   label: "Industrial Visit Approval" },
+      { value: "PROJECT",            label: "Major Project / Lab Setup" },
+      { value: "OTHER",              label: "Other Request" },
     ]
   },
 ]
 
-// HOD submits — all go directly to Director
 const HOD_REQUEST_TYPES = [
   {
-    group: "📋 Simple Requests (Director Only)",
+    group: "Simple Requests (Director Only)",
     options: [
-      { value: "LEAVE",              label: "🏖️ Leave Request" },
-      { value: "LAB_ACCESS",         label: "🔬 Lab Access Request" },
+      { value: "LEAVE",              label: "Leave Request" },
+      { value: "LAB_ACCESS",         label: "Lab Access Request" },
     ]
   },
   {
-    group: "📝 Requests (Director Only)",
+    group: "Requests (Director Only)",
     options: [
-      { value: "EQUIPMENT",          label: "🔧 Equipment Purchase Request" },
-      { value: "COURSE_CHANGE",      label: "🔄 Course / Syllabus Change" },
-      { value: "CERTIFICATE",        label: "📜 Experience Certificate" },
-      { value: "RESEARCH",           label: "🔭 Research Proposal" },
-      { value: "INDUSTRIAL_VISIT",   label: "🏭 Industrial Visit Approval" },
-      { value: "PROJECT",            label: "🚀 Major Project / Lab Setup" },
-      { value: "OTHER",              label: "📌 Other Request" },
+      { value: "EQUIPMENT",          label: "Equipment Purchase Request" },
+      { value: "COURSE_CHANGE",      label: "Course / Syllabus Change" },
+      { value: "CERTIFICATE",        label: "Experience Certificate" },
+      { value: "RESEARCH",           label: "Research Proposal" },
+      { value: "INDUSTRIAL_VISIT",   label: "Industrial Visit Approval" },
+      { value: "PROJECT",            label: "Major Project / Lab Setup" },
+      { value: "OTHER",              label: "Other Request" },
     ]
   },
 ]
 
 const DEPARTMENTS = ["CSE","ECE","MECH","CIVIL","EEE","IT"]
 
-const PRIORITIES = [
-  { value: "LOW",    label: "🟢 Low" },
-  { value: "MEDIUM", label: "🟡 Medium" },
-  { value: "HIGH",   label: "🔴 High" },
-  { value: "URGENT", label: "🚨 Urgent" },
-]
-
 export default function CreateRequest() {
 
   const [user, setUser]               = useState(null)
   const [requestType, setRequestType] = useState("")
   const [department, setDepartment]   = useState("")
-  const [priority, setPriority]       = useState("MEDIUM")
   const [description, setDescription] = useState("")
   const [title, setTitle]             = useState("")
   const [file, setFile]               = useState(null)
@@ -132,13 +123,12 @@ export default function CreateRequest() {
       form.append("title", title)
       form.append("description", description)
       form.append("type", requestType)
-      form.append("priority", priority)
       if (file) form.append("document", file)
       await api.post("/requests", form)
-      alert("✅ Request submitted successfully!")
+      alert("Request submitted successfully!")
       nav("/requests")
     } catch (err) {
-      alert("❌ " + (err.response?.data?.error || err.message))
+      alert("Error: " + (err.response?.data?.error || err.message))
     } finally {
       setLoading(false)
     }
@@ -150,22 +140,22 @@ export default function CreateRequest() {
       {/* Header */}
       <div className="cr-header">
         <div className="cr-header-left">
-          <h1>✨ Submit New Request</h1>
+          <h1>Submit New Request</h1>
         </div>
-        <Link to="/dashboard" className="cr-dashboard-btn">🏠 Dashboard</Link>
+        <Link to="/dashboard" className="cr-dashboard-btn">Dashboard</Link>
       </div>
 
       <div className="cr-body">
 
         {/* Submitting as */}
         <div className="cr-user-bar">
-          <span className="cr-user-avatar">👤</span>
+          <span className="cr-user-avatar"></span>
           <span><strong>Submitting as:</strong> {user ? `${user.name || user.username} (${user.role} - ${user.department})` : "..."}</span>
         </div>
 
         {/* Request Type */}
         <div className="cr-field">
-          <label>📋 Request Type <span className="cr-required">*</span></label>
+          <label>Request Type <span className="cr-required">*</span></label>
           <select value={requestType} onChange={e => setRequestType(e.target.value)} className="cr-select">
             <option value="">Select request type...</option>
             {(user && user.role === 'HOD'
@@ -185,7 +175,7 @@ export default function CreateRequest() {
 
         {/* Title */}
         <div className="cr-field">
-          <label>📝 Title <span className="cr-required">*</span></label>
+          <label>Title <span className="cr-required">*</span></label>
           <input
             className="cr-input"
             type="text"
@@ -197,7 +187,7 @@ export default function CreateRequest() {
 
         {/* Target Department */}
         <div className="cr-field">
-          <label>🏢 Target Department <span className="cr-required">*</span></label>
+          <label>Target Department <span className="cr-required">*</span></label>
           <select value={department} onChange={e => setDepartment(e.target.value)} className="cr-select">
             <option value="">Select department...</option>
             {DEPARTMENTS.map(d => (
@@ -206,26 +196,9 @@ export default function CreateRequest() {
           </select>
         </div>
 
-        {/* Priority */}
-        <div className="cr-field">
-          <label>🚩 Priority Level</label>
-          <div className="cr-priority-grid">
-            {PRIORITIES.map(p => (
-              <button
-                key={p.value}
-                className={`cr-priority-btn ${priority === p.value ? "cr-priority-active" : ""}`}
-                onClick={() => setPriority(p.value)}
-                type="button"
-              >
-                {p.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Description */}
         <div className="cr-field">
-          <label>📄 Request Details <span className="cr-required">*</span></label>
+          <label>Request Details <span className="cr-required">*</span></label>
           <textarea
             className="cr-textarea"
             placeholder="Please provide detailed information about your request. Include relevant dates, amounts, justifications, and any supporting information..."
@@ -237,13 +210,13 @@ export default function CreateRequest() {
 
         {/* File */}
         <div className="cr-field">
-          <label>📎 Attach Document <span style={{color:"#aaa",fontWeight:"400"}}>(Optional)</span></label>
+          <label>Attach Document <span style={{color:"#aaa",fontWeight:"400"}}>(Optional)</span></label>
           <input type="file" className="cr-file" onChange={e => setFile(e.target.files[0])} />
-          {file && <p style={{color:"#a78bfa",fontSize:"13px",marginTop:"6px"}}>📎 {file.name}</p>}
+          {file && <p style={{color:"#a78bfa",fontSize:"13px",marginTop:"6px"}}>{file.name}</p>}
         </div>
 
         <button className="cr-submit" onClick={submit} disabled={loading}>
-          {loading ? "Submitting..." : "✅ Submit Request"}
+          {loading ? "Submitting..." : "Submit Request"}
         </button>
 
       </div>

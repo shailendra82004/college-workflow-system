@@ -172,7 +172,7 @@ export default function RequestDetail() {
 
       {/* Top bar */}
       <div className="rd-topbar">
-        <div className="rd-topbar-title">📄 Request Details</div>
+        <div className="rd-topbar-title">Request Details</div>
         <button className="rd-back-btn" onClick={() => nav(-1)}>← Back</button>
       </div>
 
@@ -191,7 +191,7 @@ export default function RequestDetail() {
 
           {/* Request Information */}
           <div className="rd-info-card">
-            <div className="rd-card-heading">📋 Request Information</div>
+            <div className="rd-card-heading">Request Information</div>
             <div className="rd-info-row">
               <span>Type</span>
               <span>{TYPE_LABELS[request.type] || request.type}</span>
@@ -199,12 +199,6 @@ export default function RequestDetail() {
             <div className="rd-info-row">
               <span>Department</span>
               <span>{request.department}</span>
-            </div>
-            <div className="rd-info-row">
-              <span>Priority</span>
-              <span className={`rd-badge rd-priority-${request.priority?.toLowerCase()}`}>
-                {request.priority || "MEDIUM"}
-              </span>
             </div>
             <div className="rd-info-row">
               <span>Status</span>
@@ -216,7 +210,7 @@ export default function RequestDetail() {
 
           {/* Workflow Information */}
           <div className="rd-info-card">
-            <div className="rd-card-heading">📊 Workflow Information</div>
+            <div className="rd-card-heading">Workflow Information</div>
             <div className="rd-info-row">
               <span>Submitted By</span>
               <span>{request.created_by_name || request.created_by_username}</span>
@@ -253,7 +247,7 @@ export default function RequestDetail() {
 
         {/* Request Details */}
         <div className="rd-info-card" style={{marginTop:"16px"}}>
-          <div className="rd-card-heading">📄 Request Details</div>
+          <div className="rd-card-heading">Request Details</div>
           <p className="rd-description">{request.description}</p>
           {request.document && (
             <a
@@ -261,7 +255,7 @@ export default function RequestDetail() {
               className="rd-doc-link"
               target="_blank" rel="noopener noreferrer"
             >
-              📎 Download Attached Document
+              Download Attached Document
             </a>
           )}
         </div>
@@ -270,17 +264,17 @@ export default function RequestDetail() {
         {canAct() && (
           <div className="rd-actions">
             <button className="rd-btn-approve" onClick={() => setModal("approve")} disabled={actionLoading}>
-              ✅ Approve Request
+              Approve Request
             </button>
             <button className="rd-btn-reject" onClick={() => setModal("reject")} disabled={actionLoading}>
-              ❌ Reject Request
+              Reject Request
             </button>
           </div>
         )}
 
         {modal === "approve" && (
           <CommentModal
-            title="✅ Approve Request"
+            title="Approve Request"
             subtitle="You can add a comment explaining why you are approving this request."
             confirmLabel="Confirm Approve"
             confirmClass="rd-modal-approve"
@@ -291,7 +285,7 @@ export default function RequestDetail() {
 
         {modal === "reject" && (
           <CommentModal
-            title="❌ Reject Request"
+            title="Reject Request"
             subtitle="Please provide a reason for rejecting this request."
             confirmLabel="Confirm Reject"
             confirmClass="rd-modal-reject"
@@ -302,7 +296,7 @@ export default function RequestDetail() {
 
         {/* Approval History Timeline */}
         <div className="rd-info-card" style={{marginTop:"16px"}}>
-          <div className="rd-card-heading">📋 Approval History</div>
+          <div className="rd-card-heading">Approval History</div>
           {history.length === 0 ? (
             <p className="rd-no-history">No actions taken yet.</p>
           ) : (

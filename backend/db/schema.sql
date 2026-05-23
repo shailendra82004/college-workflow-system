@@ -71,7 +71,7 @@ INSERT INTO users (username, name, password, role, department) VALUES
 INSERT INTO users (username, name, password, role, department) VALUES
   ('coordinator_cse',   'Dr. Divya Rishi Sahu',     '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'CSE'),
   ('coordinator_ece',   'Asst. Prof. Satish Pawar', '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'ECE'),
-  ('coordinator_mech',  'Asst. Prof. Ruchi Shrivastav', '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'MECH'),
+  ('coordinator_mech',  'Asst. Prof. Ruchi Thakur', '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'MECH'),
   ('coordinator_civil', 'Asst. Prof. Garima Jain',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'CIVIL'),
   ('coordinator_eee',   'Asst. Prof. Nupur Modh',   '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'EEE'),
   ('coordinator_it',    'Asst. Prof. Mukesh Azad',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'IT');

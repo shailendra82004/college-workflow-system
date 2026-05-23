@@ -19,7 +19,6 @@ const TYPE_LABELS = {
   OTHER:            "Other",
 }
 
-const PRIORITY_ICON = { LOW: "🟢", MEDIUM: "🟡", HIGH: "🔴", URGENT: "🚨" }
 
 function displayStatus(s) { return s === "ESCALATED" ? "PENDING" : s }
 function displayStatusClass(s) { return s === "ESCALATED" ? "pending" : s?.toLowerCase() }
@@ -90,34 +89,33 @@ export default function Requests() {
     return (
       <div className="pa-page">
         <div className="pa-topbar">
-          <Link to="/dashboard" className="pa-back-btn">← 🏠 Back to Dashboard</Link>
+          <Link to="/dashboard" className="pa-back-btn">Back to Dashboard</Link>
         </div>
         <div className="pa-header">
           <div>
-            <h1>✅ Pending Approvals</h1>
-            <p>👤 Approver: <strong>{user.name || user.username}</strong> ({user.role} - {user.department})</p>
+            <h1>Pending Approvals</h1>
+            <p>Approver: <strong>{user.name || user.username}</strong> ({user.role} - {user.department})</p>
           </div>
-          <Link to="/dashboard" className="pa-dash-btn">🏠 Dashboard</Link>
+          <Link to="/dashboard" className="pa-dash-btn">Dashboard</Link>
         </div>
 
         <div className="pa-body">
           {loading ? (
             <div className="pa-empty">Loading...</div>
           ) : requests.length === 0 ? (
-            <div className="pa-empty">🎉 No pending approvals right now.</div>
+            <div className="pa-empty">No pending approvals right now.</div>
           ) : (
             <div className="pa-table-wrap">
               <table className="pa-table">
                 <thead>
                   <tr>
-                    <th>🆔 ID</th>
-                    <th>📄 TYPE</th>
-                    <th>🏢 DEPARTMENT</th>
-                    <th>👤 SUBMITTED BY</th>
-                    <th>🚩 PRIORITY</th>
-                    <th>📊 STATUS</th>
-                    <th>📅 CREATED</th>
-                    <th>⚡ ACTIONS</th>
+                    <th>ID</th>
+                    <th>TYPE</th>
+                    <th>DEPARTMENT</th>
+                    <th>SUBMITTED BY</th>
+                    <th>STATUS</th>
+                    <th>CREATED</th>
+                    <th>ACTIONS</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -128,21 +126,16 @@ export default function Requests() {
                       <td>{r.department}</td>
                       <td>{r.created_by_name || r.created_by_username}</td>
                       <td>
-                        <span className={`pa-priority pa-priority-${r.priority?.toLowerCase()}`}>
-                          {PRIORITY_ICON[r.priority]} {r.priority}
-                        </span>
-                      </td>
-                      <td>
                         <span className={`pa-status pa-status-${displayStatusClass(r.status)}`}>{displayStatus(r.status)}</span>
                       </td>
                       <td>{formatDate(r.created_at)}</td>
                       <td>
                         <div className="pa-actions">
                           <div className="pa-row1">
-                            <Link to={`/requests/${r.id}`} className="pa-btn-view">👁 View</Link>
-                            <button className="pa-btn-approve" onClick={() => quickApprove(r.id)}>✔ Quick Approve</button>
+                            <Link to={`/requests/${r.id}`} className="pa-btn-view">View</Link>
+                            <button className="pa-btn-approve" onClick={() => quickApprove(r.id)}>Quick Approve</button>
                           </div>
-                          <button className="pa-btn-reject" onClick={() => quickReject(r.id)}>✖ Quick Reject</button>
+                          <button className="pa-btn-reject" onClick={() => quickReject(r.id)}>Quick Reject</button>
                         </div>
                       </td>
                     </tr>
@@ -155,7 +148,7 @@ export default function Requests() {
           {/* My submitted requests section */}
           {myRequests.length > 0 && (
             <div style={{ marginTop: "32px" }}>
-              <div className="rh-section-title">📁 My Submitted Requests</div>
+              <div className="rh-section-title">My Submitted Requests</div>
               {myRequests.map(r => (
                 <div key={r.id} className="rh-card">
                   <div className="rh-card-top">
@@ -166,17 +159,16 @@ export default function Requests() {
                     <span className={`rh-status rh-status-${displayStatusClass(r.status)}`}>{displayStatus(r.status)}</span>
                   </div>
                   <div className="rh-meta-row">
-                    <div className="rh-meta-item">🏢 Department: {r.department}</div>
-                    <div className="rh-meta-item">{PRIORITY_ICON[r.priority] || "🟡"} Priority: {r.priority || "MEDIUM"}</div>
-                    <div className="rh-meta-item">📅 Submitted: {formatDate(r.created_at)}</div>
-                    <div className="rh-meta-item">👤 Current Approver: {r.current_role || "—"}</div>
+                    <div className="rh-meta-item">Department: {r.department}</div>
+                    <div className="rh-meta-item">Submitted: {formatDate(r.created_at)}</div>
+                    <div className="rh-meta-item">Current Approver: {r.current_role || "—"}</div>
                   </div>
                   <div className="rh-card-footer">
-                    <Link to={`/requests/${r.id}`} className="rh-view-btn">👁 View Details</Link>
+                    <Link to={`/requests/${r.id}`} className="rh-view-btn">View Details</Link>
                     <span className="rh-awaiting">
-                      {r.status === "APPROVED" ? "✅ Approved" :
-                       r.status === "REJECTED" ? "❌ Rejected" :
-                       `⏳ Awaiting ${r.current_role || "approval"}...`}
+                      {r.status === "APPROVED" ? "Approved" :
+                       r.status === "REJECTED" ? "Rejected" :
+                       `Awaiting ${r.current_role || "approval"}...`}
                     </span>
                   </div>
                 </div>
@@ -192,13 +184,13 @@ export default function Requests() {
   return (
     <div className="rh-page">
       <div className="rh-header">
-        <h1>📂 Request History</h1>
-        <p>✨ Track the status and progress of all your submitted requests</p>
-        <Link to="/dashboard" className="rh-back-btn">🏠 Dashboard</Link>
+        <h1>Request History</h1>
+        <p>Track the status and progress of all your submitted requests</p>
+        <Link to="/dashboard" className="rh-back-btn">Dashboard</Link>
       </div>
 
       <div className="rh-body">
-        <div className="rh-section-title">📁 🟡 All Requests</div>
+        <div className="rh-section-title">All Requests</div>
 
         {loading ? (
           <div className="rh-empty">Loading requests...</div>
@@ -218,20 +210,20 @@ export default function Requests() {
                 <span className={`rh-status rh-status-${displayStatusClass(r.status)}`}>{displayStatus(r.status)}</span>
               </div>
               <div className="rh-meta-row">
-                <div className="rh-meta-item">🏢 Department: {r.department}</div>
-                <div className="rh-meta-item">{PRIORITY_ICON[r.priority] || "🟡"} Priority: {r.priority || "MEDIUM"}</div>
-                <div className="rh-meta-item">📅 Submitted: {formatDate(r.created_at)}</div>
-                <div className="rh-meta-item">👤 Current Approver: {r.current_role || "—"}</div>
+                <div className="rh-meta-item">Department: {r.department}</div>
+                <div className="rh-meta-item">Submitted: {formatDate(r.created_at)}</div>
+                <div className="rh-meta-item">Current Approver: {r.current_role || "—"}</div>
               </div>
               {r.description && (
-                <div className="rh-desc">📄 <strong>Details:</strong> {r.description}</div>
+                <div className="rh-desc"><strong>Details:</strong> {r.description}</div>
               )}
               <div className="rh-card-footer">
-                <Link to={`/requests/${r.id}`} className="rh-view-btn">👁 View Details</Link>
+                <Link to={`/requests/${r.id}`} className="rh-view-btn">View Details</Link>
                 <span className="rh-awaiting">
-                  {r.status === "APPROVED" ? "✅ Approved" :
-                   r.status === "REJECTED" ? "❌ Rejected" :
-                   `⏳ Awaiting ${r.current_role || "approval"}...`}                </span>
+                  {r.status === "APPROVED" ? "Approved" :
+                   r.status === "REJECTED" ? "Rejected" :
+                   `Awaiting ${r.current_role || "approval"}...`}
+                </span>
               </div>
             </div>
           ))
