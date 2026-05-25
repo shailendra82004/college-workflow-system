@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import api from "../services/api"
 
@@ -60,9 +60,9 @@ export default function Register() {
       <div className="card">
 
         <div style={{ textAlign: "center", marginBottom: "24px" }}>
-          <img src="/logo.jpg" alt="SATI Logo" style={{ width: "80px", height: "80px", borderRadius: "12px", objectFit: "contain", marginBottom: "10px", background: "white", padding: "6px" }} />
-          <h2 style={{ margin: 0, fontSize: "20px", fontWeight: 800 }}>Create Account</h2>
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", marginTop: "6px" }}>Register as a student</p>
+          <img src="/logo.jpg" alt="SATI Logo" style={{ width: "64px", height: "64px", borderRadius: "8px", objectFit: "contain", marginBottom: "10px", background: "white", padding: "4px" }} />
+          <h2 style={{ margin: 0, fontSize: "20px", fontWeight: 700, color: "#0f172a" }}>Create Account</h2>
+          <p style={{ color: "#64748b", fontSize: "13px", marginTop: "6px" }}>Register as a student</p>
         </div>
 
         <div className="form-group">
@@ -134,9 +134,9 @@ export default function Register() {
 
         {error && <p className="error-message">{error}</p>}
 
-        <p style={{ textAlign: "center", marginTop: "16px", fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>
+        <p style={{ textAlign: "center", marginTop: "16px", fontSize: "13px", color: "#64748b" }}>
           Already have an account?{" "}
-          <Link to="/" style={{ color: "#a78bfa", fontWeight: 600, textDecoration: "none" }}>Sign in</Link>
+          <Link to="/" style={{ color: "#4f46e5", fontWeight: 600, textDecoration: "none" }}>Sign in</Link>
         </p>
 
       </div>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import api from "../services/api"
 
-const TYPE_LABELS = {  LEAVE:            "Leave Request",
+const TYPE_LABELS = {
+  LEAVE:            "Leave Request",
   LAB_ACCESS:       "Lab Access Request",
   ASSIGNMENT_EXT:   "Assignment Extension",
   LIBRARY_EXT:      "Library Book Extension",
@@ -17,7 +18,6 @@ const TYPE_LABELS = {  LEAVE:            "Leave Request",
   INDUSTRIAL_VISIT: "Industrial Visit",
   OTHER:            "Other",
 }
-
 
 function displayStatus(s) { return s === "ESCALATED" ? "PENDING" : s }
 function displayStatusClass(s) { return s === "ESCALATED" ? "pending" : s?.toLowerCase() }
@@ -61,7 +61,7 @@ export default function Requests() {
     api.get("/auth/me")
       .then(res => { setUser(res.data); load(res.data) })
       .catch(() => nav("/"))
-  }, [nav])
+  }, [])
 
   const quickApprove = async (id) => {
     try {
@@ -94,13 +94,13 @@ export default function Requests() {
         <div className="pa-header">
           <div>
             <h1>{activeTab === "pending" ? "Pending Approvals" : "My Submitted Requests"}</h1>
-            <p>Approver: <strong>{user.name || user.username}</strong> ({user.role} - {user.department})</p>
+            <p>{user.name || user.username} · {user.role} · {user.department}</p>
           </div>
           <Link to="/dashboard" className="pa-dash-btn">Dashboard</Link>
         </div>
 
         {/* tabs */}
-        <div style={{ display: "flex", gap: "8px", padding: "0 24px 0 24px" }}>
+        <div style={{ display: "flex", gap: "6px", padding: "14px 24px 0" }}>
           <button
             onClick={() => setActiveTab("pending")}
             className={`ad-tab ${activeTab === "pending" ? "ad-tab-active" : ""}`}

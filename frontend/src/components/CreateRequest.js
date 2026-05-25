@@ -107,7 +107,7 @@ export default function CreateRequest() {
         setDepartment(res.data.department)
       })
       .catch(() => nav("/"))
-  }, [nav])
+  }, [])
 
   const submit = async () => {
     if (!requestType || !department || !description || !title) {
@@ -146,8 +146,7 @@ export default function CreateRequest() {
 
         {/* Submitting as */}
         <div className="cr-user-bar">
-          <span className="cr-user-avatar"></span>
-          <span><strong>Submitting as:</strong> {user ? `${user.name || user.username} (${user.role} - ${user.department})` : "..."}</span>
+          <span><strong>Submitting as:</strong> {user ? `${user.name || user.username} (${user.role} — ${user.department})` : "..."}</span>
         </div>
 
         {/* Request Type */}
@@ -208,9 +207,9 @@ export default function CreateRequest() {
 
         {/* File */}
         <div className="cr-field">
-          <label>Attach Document <span style={{color:"#aaa",fontWeight:"400"}}>(Optional)</span></label>
+          <label>Attach Document <span style={{ color: "#64748b", fontWeight: 400 }}>(Optional)</span></label>
           <input type="file" className="cr-file" onChange={e => setFile(e.target.files[0])} />
-          {file && <p style={{color:"#a78bfa",fontSize:"13px",marginTop:"6px"}}>{file.name}</p>}
+          {file && <p style={{ color: "#4f46e5", fontSize: "13px", marginTop: "6px" }}>{file.name}</p>}
         </div>
 
         <button className="cr-submit" onClick={submit} disabled={loading}>

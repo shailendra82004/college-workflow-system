@@ -111,9 +111,7 @@ export default function AllDepartments() {
                         {displayStatus(r.status)}
                       </span>
                     </td>
-                    <td style={{ color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>
-                      {r.current_role?.toLowerCase().replace("_", " ") || "—"}
-                    </td>
+                    <td>{r.current_role?.toLowerCase().replace("_", " ") || "—"}</td>
                     <td>{formatDate(r.created_at)}</td>
                     <td>
                       <Link to={`/requests/${r.id}`} className="pa-btn-view">View</Link>

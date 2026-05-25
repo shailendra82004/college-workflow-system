@@ -152,7 +152,6 @@ export default function RequestDetail() {
     if (!user || !request) return false
     if (!["COORDINATOR","HOD","DIRECTOR"].includes(user.role)) return false
     if (!["PENDING","ESCALATED"].includes(request.status)) return false
-    // Cannot approve your own request
     if (request.created_by === user.id) return false
     return request.current_role === user.role
   }
@@ -250,7 +249,7 @@ export default function RequestDetail() {
         </div>
 
         {/* Request Details */}
-        <div className="rd-info-card" style={{marginTop:"16px"}}>
+        <div className="rd-info-card" style={{ marginTop: "14px" }}>
           <div className="rd-card-heading">Request Details</div>
           <p className="rd-description">{request.description}</p>
           {request.document && (
@@ -299,7 +298,7 @@ export default function RequestDetail() {
         )}
 
         {/* Approval History Timeline */}
-        <div className="rd-info-card" style={{marginTop:"16px"}}>
+        <div className="rd-info-card" style={{ marginTop: "14px" }}>
           <div className="rd-card-heading">Approval History</div>
           {history.length === 0 ? (
             <p className="rd-no-history">No actions taken yet.</p>
