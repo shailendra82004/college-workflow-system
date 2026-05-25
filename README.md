@@ -206,7 +206,7 @@ All passwords are `123`.
 | 0108EC231001 | Vedant Soni | ECE |
 | 0108ME231001 | Shailender Rajoliya | MECH |
 | 0108CE231001 | Prajjwal Mandloi | CIVIL |
-| 0108EE231001 | Pranav Mahajan | EEE |
+| 0108EE231001 | Pranav Mahajan | EE |
 | 0108IT231001 | Toshima Rahangdale | IT |
 
 ### Coordinators
@@ -217,7 +217,7 @@ All passwords are `123`.
 | coordinator_ece | Asst. Prof. Satish Pawar | ECE |
 | coordinator_mech | Asst. Prof. Ruchi Thakur | MECH |
 | coordinator_civil | Asst. Prof. Garima Jain | CIVIL |
-| coordinator_eee | Asst. Prof. Nupur Modh | EEE |
+| coordinator_eee | Asst. Prof. Nupur Modh | EE |
 | coordinator_it | Asst. Prof. Mukesh Azad | IT |
 
 ### HODs
@@ -228,7 +228,7 @@ All passwords are `123`.
 | hod_ece | Dr. Ashutosh Datar | ECE |
 | hod_mech | Dr. Pankaj Agarwal | MECH |
 | hod_civil | Dr. Rajeev Jain | CIVIL |
-| hod_eee | Prof. C. S. Sharma | EEE |
+| hod_eee | Prof. C. S. Sharma | EE |
 | hod_it | Dr. Shailendra Kumar Shrivastava | IT |
 
 ### Director

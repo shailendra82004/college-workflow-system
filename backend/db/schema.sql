@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
   name       VARCHAR(100),
   password   VARCHAR(255) NOT NULL,
   role       ENUM('STUDENT','COORDINATOR','HOD','DIRECTOR') NOT NULL,
-  department ENUM('CSE','ECE','MECH','CIVIL','EEE','IT')    NOT NULL
+  department ENUM('CSE','ECE','MECH','CIVIL','EE','IT')    NOT NULL
 );
 
 -- Requests table
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS requests (
   type         ENUM('LEAVE','LAB_ACCESS','ASSIGNMENT_EXT','LIBRARY_EXT','FEE_CONCESSION','CERTIFICATE','SCHOLARSHIP','COURSE_CHANGE','EXAM_REEVAL','PROJECT','EQUIPMENT','RESEARCH','INDUSTRIAL_VISIT','OTHER') NOT NULL,
   status       ENUM('PENDING','ESCALATED','APPROVED','REJECTED') NOT NULL DEFAULT 'PENDING',
   current_role ENUM('COORDINATOR','HOD','DIRECTOR')              NOT NULL DEFAULT 'COORDINATOR',
-  department   ENUM('CSE','ECE','MECH','CIVIL','EEE','IT')       NOT NULL,
+  department   ENUM('CSE','ECE','MECH','CIVIL','EE','IT')       NOT NULL,
   document     VARCHAR(200),
   created_by   INT NOT NULL,
   created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -55,7 +55,7 @@ INSERT INTO users (username, name, password, role, department) VALUES
   ('0108EC231001', 'Vedant Soni',         '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'ECE'),
   ('0108ME231001', 'Shailender Rajoliya', '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'MECH'),
   ('0108CE231001', 'Prajjwal Mandloi',    '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'CIVIL'),
-  ('0108EE231001', 'Pranav Mahajan',      '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'EEE'),
+  ('0108EE231001', 'Pranav Mahajan',      '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'EE'),
   ('0108IT231001', 'Toshima Rahangdale',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'IT');
 
 -- Coordinators
@@ -64,7 +64,7 @@ INSERT INTO users (username, name, password, role, department) VALUES
   ('coordinator_ece',   'Asst. Prof. Satish Pawar', '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'ECE'),
   ('coordinator_mech',  'Asst. Prof. Ruchi Thakur', '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'MECH'),
   ('coordinator_civil', 'Asst. Prof. Garima Jain',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'CIVIL'),
-  ('coordinator_eee',   'Asst. Prof. Nupur Modh',   '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'EEE'),
+  ('coordinator_eee',   'Asst. Prof. Nupur Modh',   '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'EE'),
   ('coordinator_it',    'Asst. Prof. Mukesh Azad',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'IT');
 
 -- HODs
@@ -73,7 +73,7 @@ INSERT INTO users (username, name, password, role, department) VALUES
   ('hod_ece',   'Dr. Ashutosh Datar',                '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'ECE'),
   ('hod_mech',  'Dr. Pankaj Agarwal',                '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'MECH'),
   ('hod_civil', 'Dr. Rajeev Jain',                   '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'CIVIL'),
-  ('hod_eee',   'Prof. C. S. Sharma',                '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'EEE'),
+  ('hod_eee',   'Prof. C. S. Sharma',                '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'EE'),
   ('hod_it',    'Dr. Shailendra Kumar Shrivastava',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'IT');
 
 -- Director (department field is required by schema; CSE is a placeholder)

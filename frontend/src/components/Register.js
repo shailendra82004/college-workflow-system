@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import api from "../services/api"
 
-const DEPARTMENTS = ["CSE", "ECE", "MECH", "CIVIL", "EEE", "IT"]
+const DEPARTMENTS = ["CSE", "ECE", "MECH", "CIVIL", "EE", "IT"]
 
 export default function Register() {
   const [form, setForm] = useState({

@@ -19,7 +19,7 @@ const TYPE_LABELS = {
   OTHER:            "Other",
 }
 
-const DEPARTMENTS = ["CSE", "ECE", "MECH", "CIVIL", "EEE", "IT"]
+const DEPARTMENTS = ["CSE", "ECE", "MECH", "CIVIL", "EE", "IT"]
 
 function displayStatus(s) { return s === "ESCALATED" ? "PENDING" : s }
 function displayStatusClass(s) { return s === "ESCALATED" ? "pending" : s?.toLowerCase() }
@@ -104,6 +104,10 @@ export default function AllDepartments() {
                       <span className="ad-dept-badge">{r.department}</span>
                     </td>
                     <td>{r.created_by_name || r.created_by_username}</td>
+                    .
+                      
+
+
                     <td>
                       <span className={`pa-status pa-status-${displayStatusClass(r.status)}`}>
                         {displayStatus(r.status)}
