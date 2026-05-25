@@ -5,14 +5,14 @@ const upload = require('../middleware/upload')
 const { query } = require('../db')
 const { WORKFLOW_MAP, COORDINATOR_WORKFLOW_MAP, HOD_WORKFLOW_MAP, getWorkflowMap } = require('../config/workflow')
 
-// All valid types = union of all maps
+// all valid request types across all roles
 const VALID_TYPES = [...new Set([
   ...Object.keys(WORKFLOW_MAP),
   ...Object.keys(COORDINATOR_WORKFLOW_MAP),
   ...Object.keys(HOD_WORKFLOW_MAP),
 ])]
 
-// ─── Task 4.1: POST /api/requests (STUDENT only) ────────────────────────────
+// create a new request
 
 router.post(
   '/',
@@ -22,12 +22,12 @@ router.post(
   async (req, res) => {
     const { title, description, type } = req.body
 
-    // Validate required fields
+    // check required fields
     if (!title || !description || !type) {
       return res.status(400).json({ error: 'title, description, and type are required' })
     }
 
-    // Validate type enum
+    // validate request type
     if (!VALID_TYPES.includes(type)) {
       return res.status(400).json({
         error: `Invalid type. Must be one of: ${VALID_TYPES.join(', ')}`,
@@ -68,7 +68,7 @@ router.post(
   }
 )
 
-// ─── GET /api/requests/all-departments — DIRECTOR sees ALL requests from all depts ──
+// director sees all requests from every department
 
 router.get('/all-departments', auth, requireRole('DIRECTOR'), async (req, res) => {
   try {
@@ -85,7 +85,7 @@ router.get('/all-departments', auth, requireRole('DIRECTOR'), async (req, res) =
   }
 })
 
-// ─── GET /api/requests/department — HOD & COORDINATOR see ALL requests in their dept ──
+// HOD and coordinator see all requests in their department
 
 router.get('/department', auth, requireRole('HOD', 'COORDINATOR'), async (req, res) => {
   try {
@@ -104,7 +104,7 @@ router.get('/department', auth, requireRole('HOD', 'COORDINATOR'), async (req, r
   }
 })
 
-// ─── Task 4.2: GET /api/requests (role-based filtering) ─────────────────────
+// get requests based on who is logged in
 
 router.get('/', auth, async (req, res) => {
   const { role, department, id: userId } = req.user
@@ -121,7 +121,7 @@ router.get('/', auth, async (req, res) => {
         [userId]
       )
     } else if (role === 'COORDINATOR') {
-      // Pending approvals waiting for coordinator + their own submitted requests
+      // pending approvals + their own submitted requests
       rows = await query(
         `SELECT r.*, u.username AS created_by_username, COALESCE(u.name, u.username) AS created_by_name
          FROM requests r
@@ -134,7 +134,7 @@ router.get('/', auth, async (req, res) => {
         [department, userId]
       )
     } else if (role === 'HOD') {
-      // Pending approvals waiting for HOD + their own submitted requests
+      // pending approvals + their own submitted requests
       rows = await query(
         `SELECT r.*, u.username AS created_by_username, COALESCE(u.name, u.username) AS created_by_name
          FROM requests r
@@ -165,7 +165,7 @@ router.get('/', auth, async (req, res) => {
   }
 })
 
-// ─── Task 6.1: GET /api/requests/:id ────────────────────────────────────────
+// get a single request with its approval history
 
 router.get('/:id', auth, async (req, res) => {
   try {
@@ -183,7 +183,7 @@ router.get('/:id', auth, async (req, res) => {
       return res.status(404).json({ error: 'Not found' })
     }
 
-    // Visibility rules
+    // check if the user has access to this request
     const { role, department, id: userId } = req.user
     if (role === 'STUDENT' && request.created_by !== userId) {
       return res.status(404).json({ error: 'Not found' })
@@ -191,7 +191,7 @@ router.get('/:id', auth, async (req, res) => {
     if ((role === 'COORDINATOR' || role === 'HOD') && request.department !== department) {
       return res.status(404).json({ error: 'Not found' })
     }
-    // DIRECTOR can see any request
+    // director can see all requests
 
     const history = await query(
       `SELECT ah.*, COALESCE(u.name, u.username) AS actor_name
@@ -209,7 +209,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 })
 
-// ─── Task 6.2: POST /api/requests/:id/approve ───────────────────────────────
+// approve a request
 
 router.post(
   '/:id/approve',
@@ -229,8 +229,7 @@ router.post(
         return res.status(404).json({ error: 'Not found' })
       }
 
-      // Department check inline (mirrors department middleware)
-      req.requestDept = request.department
+      // only allow actions on requests from their own department
       const { role, department } = req.user
       if ((role === 'COORDINATOR' || role === 'HOD') && request.department !== department) {
         return res.status(403).json({ error: 'Forbidden' })
@@ -240,17 +239,17 @@ router.post(
         return res.status(400).json({ error: 'Request is already finalised' })
       }
 
-      // Cannot approve your own request
+      // can't approve your own request
       if (request.created_by === req.user.id) {
         return res.status(403).json({ error: 'You cannot approve your own request' })
       }
 
-      // Turn check
+      // only the current role in the chain can act
       if (req.user.role !== request.current_role) {
         return res.status(403).json({ error: 'Forbidden' })
       }
 
-      // Pick the correct workflow map based on who submitted the request
+      // pick the right workflow based on who submitted
       const chain = getWorkflowMap(request.created_by_role)[request.type]
       const currentIndex = chain.indexOf(request.current_role)
       const nextRole = chain[currentIndex + 1] || null
@@ -294,7 +293,7 @@ router.post(
   }
 )
 
-//  POST /api/requests/:id/reject 
+// reject a request
 
 router.post(
   '/:id/reject',
@@ -308,7 +307,7 @@ router.post(
         return res.status(404).json({ error: 'Not found' })
       }
 
-      // Department check inline
+      // only allow actions on requests from their own department
       const { role, department } = req.user
       if ((role === 'COORDINATOR' || role === 'HOD') && request.department !== department) {
         return res.status(403).json({ error: 'Forbidden' })
@@ -318,7 +317,7 @@ router.post(
         return res.status(400).json({ error: 'Request is already finalised' })
       }
 
-      // Turn check
+      // only the current role in the chain can act
       if (req.user.role !== request.current_role) {
         return res.status(403).json({ error: 'Forbidden' })
       }

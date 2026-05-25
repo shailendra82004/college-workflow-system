@@ -1,4 +1,3 @@
- 
 module.exports = function(req, res, next) {
   const role = req.user && req.user.role;
 

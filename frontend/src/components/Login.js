@@ -1,6 +1,6 @@
 import React, { useState } from "react"
+import { useNavigate, Link } from "react-router-dom"
 import api from "../services/api"
-import { useNavigate } from "react-router-dom"
 
 export default function Login() {
 
@@ -92,14 +92,10 @@ export default function Login() {
           <p className="error-message">{error}</p>
         )}
 
-        {/* Demo Users Panel */}
-        <div className="demo-panel">
-          <p className="demo-title">Demo Users (Password: 123)</p>
-          <p><span className="demo-label">Students:</span> <span className="demo-users">0108CS231001, 0108EC231001, 0108ME231001</span></p>
-          <p><span className="demo-label">Coordinators:</span> <span className="demo-users">coordinator_cse, coordinator_ece</span></p>
-          <p><span className="demo-label">HODs:</span> <span className="demo-users">hod_cse, hod_ece</span></p>
-          <p><span className="demo-label">Director:</span> <span className="demo-users">director</span></p>
-        </div>
+        <p style={{ textAlign: "center", marginTop: "16px", fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>
+          New student?{" "}
+          <Link to="/register" style={{ color: "#a78bfa", fontWeight: 600, textDecoration: "none" }}>Create an account</Link>
+        </p>
 
       </div>
 

@@ -14,12 +14,7 @@ const pool = mysql.createPool({
 
 const promisePool = pool.promise()
 
-/**
- * Promise-based query helper.
- * @param {string} sql  - SQL string (supports ? placeholders)
- * @param {Array}  params - Bound parameters (optional)
- * @returns {Promise<Array>} rows
- */
+// promise-based query helper
 async function query(sql, params = []) {
   const [rows] = await promisePool.execute(sql, params)
   return rows

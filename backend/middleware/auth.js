@@ -5,7 +5,7 @@ module.exports = function(req, res, next) {
 
   req.user = req.session.user;
 
-  // Reset the 30-min inactivity timer on every authenticated request
+  // reset the 30-min inactivity timer on every authenticated request
   if (typeof req.session.touch === 'function') {
     req.session.touch();
   }

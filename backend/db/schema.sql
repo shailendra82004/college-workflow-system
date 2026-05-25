@@ -1,5 +1,5 @@
--- College Workflow Management System — Database Schema
--- Run once against an empty `college_workflow` database.
+-- Database schema for the College Workflow Management System
+-- Run this once against a fresh `college_workflow` database.
 
 CREATE DATABASE IF NOT EXISTS college_workflow
   CHARACTER SET utf8mb4
@@ -7,21 +7,18 @@ CREATE DATABASE IF NOT EXISTS college_workflow
 
 USE college_workflow;
 
--- ─────────────────────────────────────────────
--- Users
--- ─────────────────────────────────────────────
+-- Users table
 CREATE TABLE IF NOT EXISTS users (
   id         INT AUTO_INCREMENT PRIMARY KEY,
   username   VARCHAR(50)  NOT NULL UNIQUE,
+  email      VARCHAR(100) NOT NULL UNIQUE,
   name       VARCHAR(100),
-  password   VARCHAR(255) NOT NULL,          -- bcrypt hash
+  password   VARCHAR(255) NOT NULL,          -- stored as a bcrypt hash
   role       ENUM('STUDENT','COORDINATOR','HOD','DIRECTOR') NOT NULL,
   department ENUM('CSE','ECE','MECH','CIVIL','EEE','IT')    NOT NULL
 );
 
--- ─────────────────────────────────────────────
--- Requests
--- ─────────────────────────────────────────────
+-- Requests table
 CREATE TABLE IF NOT EXISTS requests (
   id           INT AUTO_INCREMENT PRIMARY KEY,
   title        VARCHAR(200) NOT NULL,
@@ -37,9 +34,7 @@ CREATE TABLE IF NOT EXISTS requests (
   CONSTRAINT fk_requests_user FOREIGN KEY (created_by) REFERENCES users(id)
 );
 
--- ─────────────────────────────────────────────
--- Approval History  (immutable log)
--- ─────────────────────────────────────────────
+-- Approval history — immutable log of every action taken on a request
 CREATE TABLE IF NOT EXISTS approval_history (
   id         INT AUTO_INCREMENT PRIMARY KEY,
   request_id INT NOT NULL,
@@ -54,11 +49,9 @@ CREATE TABLE IF NOT EXISTS approval_history (
 
 
 
--- ─────────────────────────────────────────────
--- All passwords are bcrypt hash of "123"
--- ─────────────────────────────────────────────
+-- All passwords are bcrypt hashes of "123"
 
--- Students  — enrollment number as username
+-- Students — enrollment number as username
 INSERT INTO users (username, name, password, role, department) VALUES
   ('0108CS231001', 'Shivam Patel',        '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'CSE'),
   ('0108EC231001', 'Vedant Soni',         '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'ECE'),
@@ -67,7 +60,7 @@ INSERT INTO users (username, name, password, role, department) VALUES
   ('0108EE231001', 'Pranav Mahajan',      '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'EEE'),
   ('0108IT231001', 'Toshima Rahangdale',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'STUDENT', 'IT');
 
--- Coordinators 
+-- Coordinators
 INSERT INTO users (username, name, password, role, department) VALUES
   ('coordinator_cse',   'Dr. Divya Rishi Sahu',     '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'CSE'),
   ('coordinator_ece',   'Asst. Prof. Satish Pawar', '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'ECE'),
@@ -78,7 +71,7 @@ INSERT INTO users (username, name, password, role, department) VALUES
 
 
 
--- HODs 
+-- HODs
 INSERT INTO users (username, name, password, role, department) VALUES
   ('hod_cse',   'Dr. Kanak Saxena',                 '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'CSE'),
   ('hod_ece',   'Dr. Ashutosh Datar',                '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'ECE'),

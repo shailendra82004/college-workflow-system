@@ -26,12 +26,20 @@ export default function Dashboard() {
       })
       .then(res => {
         const reqs = res.data
-        // Only count requests pending FOR this user, not their own submitted ones
-        const pending = reqs.filter(r =>
-          (r.status === "PENDING" || r.status === "ESCALATED") &&
-          r.created_by !== currentUser?.id
-        ).length
-        setStats({ total: reqs.length, pending })
+        if (currentUser?.role === 'STUDENT') {
+          // Student: total = all their requests, pending = their active ones
+          const pending = reqs.filter(r =>
+            r.status === "PENDING" || r.status === "ESCALATED"
+          ).length
+          setStats({ total: reqs.length, pending })
+        } else {
+          // Approver: pending = requests waiting FOR them (not their own submitted)
+          const pending = reqs.filter(r =>
+            (r.status === "PENDING" || r.status === "ESCALATED") &&
+            r.created_by !== currentUser?.id
+          ).length
+          setStats({ total: reqs.length, pending })
+        }
       })
       .catch(() => nav("/"))
   }, [nav])
@@ -44,9 +52,8 @@ export default function Dashboard() {
   const role = user?.role
   const isApprover = role === "COORDINATOR" || role === "HOD"
   const isDirector = role === "DIRECTOR"
-  const isStudent  = role === "STUDENT"
 
-  /* ── COORDINATOR / HOD layout ── */
+  // coordinator / HOD layout
   if (isApprover) return (
     <div className="db-page">
 
@@ -64,7 +71,7 @@ export default function Dashboard() {
 
       <div className="db-body">
 
-        {/* Welcome */}
+        {/* welcome */}
         <div className="db-welcome-card">
           <div className="db-welcome-left">
             <h2>Welcome, Prof. {user.name || user.username}</h2>
@@ -73,16 +80,16 @@ export default function Dashboard() {
               <span>{user.username}</span>
             </div>
           </div>
-          <span className="db-role-pill" style={{ background: "linear-gradient(135deg,#11998e,#38ef7d)" }}>{role}</span>
+          <span className="db-role-pill" style={{ background: "#11998e" }}>{role}</span>
         </div>
 
-        {/* Pending stat */}
+        {/* pending stat */}
         <div className="db-stat-card" style={{ textAlign: "center" }}>
           <div className="db-stat-num">{stats.pending}</div>
           <div className="db-stat-label">Pending Your Approval</div>
         </div>
 
-        {/* 3 action cards */}
+        {/* action cards */}
         <div className="db-action-grid" style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
 
           <Link to="/requests" className="db-action-card">
@@ -105,7 +112,7 @@ export default function Dashboard() {
 
         </div>
 
-        {/* Approval Workflow info */}
+        {/* approval workflow info */}
         <div className="db-workflow-card">
           <h3>Approval Workflow</h3>
           <div className="db-workflow-list">
@@ -123,7 +130,7 @@ export default function Dashboard() {
     </div>
   )
 
-  /* ── DIRECTOR layout ── */
+  // director layout
   if (isDirector) return (
     <div className="db-page">
 
@@ -149,7 +156,7 @@ export default function Dashboard() {
               <span>{user.username}</span>
             </div>
           </div>
-          <span className="db-role-pill" style={{ background: "linear-gradient(135deg,#f5576c,#f093fb)" }}>DIRECTOR</span>
+          <span className="db-role-pill" style={{ background: "#e0445a" }}>DIRECTOR</span>
         </div>
 
         <div className="db-stat-card" style={{ textAlign: "center" }}>
@@ -187,7 +194,7 @@ export default function Dashboard() {
     </div>
   )
 
-  /* ── STUDENT layout (default) ── */
+  // student layout
   return (
     <div className="db-page">
 
@@ -240,7 +247,7 @@ export default function Dashboard() {
           </Link>
         </div>
 
-        {/* Approval Workflow */}
+        {/* approval workflow */}
         <div className="db-workflow-card">
           <h3>Approval Workflow</h3>
           <div className="db-workflow-list">
@@ -258,6 +265,3 @@ export default function Dashboard() {
     </div>
   )
 }
-
-
-

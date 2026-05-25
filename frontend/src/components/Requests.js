@@ -33,6 +33,7 @@ export default function Requests() {
   const [requests, setRequests]       = useState([])
   const [myRequests, setMyRequests]   = useState([])
   const [loading, setLoading]         = useState(true)
+  const [activeTab, setActiveTab]     = useState("pending")
   const nav = useNavigate()
 
   const load = (currentUser) => {
@@ -84,7 +85,7 @@ export default function Requests() {
 
   const isApprover = user && ["COORDINATOR", "HOD", "DIRECTOR"].includes(user.role)
 
-  /* ── APPROVER TABLE VIEW ─────────────────────────────── */
+  /*APPROVER TABLE VIEW*/
   if (isApprover) {
     return (
       <div className="pa-page">
@@ -93,63 +94,79 @@ export default function Requests() {
         </div>
         <div className="pa-header">
           <div>
-            <h1>Pending Approvals</h1>
+            <h1>{activeTab === "pending" ? "Pending Approvals" : "My Submitted Requests"}</h1>
             <p>Approver: <strong>{user.name || user.username}</strong> ({user.role} - {user.department})</p>
           </div>
           <Link to="/dashboard" className="pa-dash-btn">Dashboard</Link>
         </div>
 
+        {/* tabs */}
+        <div style={{ display: "flex", gap: "8px", padding: "0 24px 0 24px" }}>
+          <button
+            onClick={() => setActiveTab("pending")}
+            className={`ad-tab ${activeTab === "pending" ? "ad-tab-active" : ""}`}
+          >
+            Pending Approvals {requests.length > 0 && `(${requests.length})`}
+          </button>
+          <button
+            onClick={() => setActiveTab("mine")}
+            className={`ad-tab ${activeTab === "mine" ? "ad-tab-active" : ""}`}
+          >
+            My Requests {myRequests.length > 0 && `(${myRequests.length})`}
+          </button>
+        </div>
+
         <div className="pa-body">
           {loading ? (
             <div className="pa-empty">Loading...</div>
-          ) : requests.length === 0 ? (
-            <div className="pa-empty">No pending approvals right now.</div>
-          ) : (
-            <div className="pa-table-wrap">
-              <table className="pa-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>TYPE</th>
-                    <th>DEPARTMENT</th>
-                    <th>SUBMITTED BY</th>
-                    <th>STATUS</th>
-                    <th>CREATED</th>
-                    <th>ACTIONS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {requests.map(r => (
-                    <tr key={r.id}>
-                      <td>{r.id}</td>
-                      <td>{TYPE_LABELS[r.type] || r.type}</td>
-                      <td>{r.department}</td>
-                      <td>{r.created_by_name || r.created_by_username}</td>
-                      <td>
-                        <span className={`pa-status pa-status-${displayStatusClass(r.status)}`}>{displayStatus(r.status)}</span>
-                      </td>
-                      <td>{formatDate(r.created_at)}</td>
-                      <td>
-                        <div className="pa-actions">
-                          <div className="pa-row1">
-                            <Link to={`/requests/${r.id}`} className="pa-btn-view">View</Link>
-                            <button className="pa-btn-approve" onClick={() => quickApprove(r.id)}>Quick Approve</button>
-                          </div>
-                          <button className="pa-btn-reject" onClick={() => quickReject(r.id)}>Quick Reject</button>
-                        </div>
-                      </td>
+          ) : activeTab === "pending" ? (
+            requests.length === 0 ? (
+              <div className="pa-empty">No pending approvals right now.</div>
+            ) : (
+              <div className="pa-table-wrap">
+                <table className="pa-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>TYPE</th>
+                      <th>DEPARTMENT</th>
+                      <th>SUBMITTED BY</th>
+                      <th>STATUS</th>
+                      <th>CREATED</th>
+                      <th>ACTIONS</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          {/* My submitted requests section */}
-          {myRequests.length > 0 && (
-            <div style={{ marginTop: "32px" }}>
-              <div className="rh-section-title">My Submitted Requests</div>
-              {myRequests.map(r => (
+                  </thead>
+                  <tbody>
+                    {requests.map(r => (
+                      <tr key={r.id}>
+                        <td>{r.id}</td>
+                        <td>{TYPE_LABELS[r.type] || r.type}</td>
+                        <td>{r.department}</td>
+                        <td>{r.created_by_name || r.created_by_username}</td>
+                        <td>
+                          <span className={`pa-status pa-status-${displayStatusClass(r.status)}`}>{displayStatus(r.status)}</span>
+                        </td>
+                        <td>{formatDate(r.created_at)}</td>
+                        <td>
+                          <div className="pa-actions">
+                            <div className="pa-row1">
+                              <Link to={`/requests/${r.id}`} className="pa-btn-view">View</Link>
+                              <button className="pa-btn-approve" onClick={() => quickApprove(r.id)}>Quick Approve</button>
+                            </div>
+                            <button className="pa-btn-reject" onClick={() => quickReject(r.id)}>Quick Reject</button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )
+          ) : (
+            myRequests.length === 0 ? (
+              <div className="pa-empty">You have not submitted any requests yet.</div>
+            ) : (
+              myRequests.map(r => (
                 <div key={r.id} className="rh-card">
                   <div className="rh-card-top">
                     <div>
@@ -172,15 +189,15 @@ export default function Requests() {
                     </span>
                   </div>
                 </div>
-              ))}
-            </div>
+              ))
+            )
           )}
         </div>
       </div>
     )
   }
 
-  /* ── STUDENT CARD VIEW ───────────────────────────────── */
+  /* STUDENT CARD VIEW */
   return (
     <div className="rh-page">
       <div className="rh-header">
