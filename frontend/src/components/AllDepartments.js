@@ -86,6 +86,7 @@ export default function AllDepartments() {
               <thead>
                 <tr>
                   <th>ID</th>
+                  <th>TITLE</th>
                   <th>TYPE</th>
                   <th>DEPT</th>
                   <th>SUBMITTED BY</th>
@@ -99,15 +100,12 @@ export default function AllDepartments() {
                 {filtered.map(r => (
                   <tr key={r.id}>
                     <td>{r.id}</td>
+                    <td>{r.title || "—"}</td>
                     <td>{TYPE_LABELS[r.type] || r.type}</td>
                     <td>
                       <span className="ad-dept-badge">{r.department}</span>
                     </td>
                     <td>{r.created_by_name || r.created_by_username}</td>
-                    .
-                      
-
-
                     <td>
                       <span className={`pa-status pa-status-${displayStatusClass(r.status)}`}>
                         {displayStatus(r.status)}
