@@ -18,7 +18,6 @@ college-workflow-system/
 │   ├── middleware/
 │   │   ├── auth.js            # session check
 │   │   ├── role.js            # role-based access control
-│   │   ├── department.js      # department isolation
 │   │   └── upload.js          # file upload (multer)
 │   ├── routes/
 │   │   ├── auth.js            # login / logout / register / me
@@ -164,7 +163,7 @@ Coordinator, HOD, and Director accounts must be added directly to the database.
 - Department Requests view for Coordinator and HOD
 - All Departments view with department filter tabs for Director
 - File attachment support on requests
-- Self-approval prevention
+- Self-approval and self-rejection prevention
 - Department isolation — coordinators and HODs can only act on their own department
 - `ESCALATED` status displays as `PENDING` in the UI
 
