@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import api from "../services/api"
@@ -88,8 +87,6 @@ const HOD_REQUEST_TYPES = [
     ]
   },
 ]
-
-const DEPARTMENTS = ["CSE","ECE","MECH","CIVIL","EEE","IT"]
 
 export default function CreateRequest() {
 
@@ -187,13 +184,14 @@ export default function CreateRequest() {
 
         {/* Target Department */}
         <div className="cr-field">
-          <label>Target Department <span className="cr-required">*</span></label>
-          <select value={department} onChange={e => setDepartment(e.target.value)} className="cr-select">
-            <option value="">Select department...</option>
-            {DEPARTMENTS.map(d => (
-              <option key={d} value={d}>{d}</option>
-            ))}
-          </select>
+          <label>Target Department</label>
+          <input
+            className="cr-input"
+            type="text"
+            value={department}
+            readOnly
+            style={{ opacity: 0.6, cursor: "not-allowed" }}
+          />
         </div>
 
         {/* Description */}
