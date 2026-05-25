@@ -95,18 +95,11 @@ export default function Register() {
             value={form.department}
             onChange={set("department")}
             disabled={loading}
-            style={{
-              width: "100%", padding: "13px 16px",
-              background: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              borderRadius: "8px", fontSize: "15px",
-              color: form.department ? "white" : "rgba(255,255,255,0.35)",
-              fontFamily: "inherit",
-            }}
+            className="cr-select"
           >
             <option value="" disabled>Select your department</option>
             {DEPARTMENTS.map(d => (
-              <option key={d} value={d} style={{ background: "#1a1a3e", color: "white" }}>{d}</option>
+              <option key={d} value={d}>{d}</option>
             ))}
           </select>
         </div>

@@ -453,12 +453,11 @@ input[type="file"]:hover {
   color: white;
   font-size: 14px;
   font-family: inherit;
-  appearance: none;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: border-color 0.25s ease;
 }
-.cr-select option { background: #1a1a3e; color: white; }
-.cr-select optgroup { background: #0f0f2e; color: #a78bfa; font-weight: 700; font-style: normal; }
+.cr-select option { background: #16213e; color: white; }
+.cr-select optgroup { background: #0f1b35; color: #a78bfa; font-weight: 700; font-style: normal; }
 .cr-select:focus, .cr-input:focus {
   outline: none;
   border-color: #667eea;
