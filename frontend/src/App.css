@@ -17,7 +17,7 @@ body {
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--grad-main);
   min-height: 100vh;
-  color: var(--text-white);
+  color: white;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -653,20 +653,6 @@ input[type="file"]:hover {
 .pa-table tbody tr { transition: background 0.2s; }
 .pa-table tbody tr:hover { background: rgba(255,255,255,0.05); }
 
-/* priority pills */
-.pa-priority {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.3px;
-}
-.pa-priority-low    { background: rgba(17,153,142,0.25); color: #38ef7d; border: 1px solid rgba(56,239,125,0.3); }
-.pa-priority-medium { background: rgba(247,151,30,0.2);  color: #ffd200; border: 1px solid rgba(255,210,0,0.3); }
-.pa-priority-high   { background: rgba(245,87,108,0.2);  color: #f5576c; border: 1px solid rgba(245,87,108,0.3); }
-.pa-priority-urgent { background: rgba(118,75,162,0.3);  color: #c084fc; border: 1px solid rgba(192,132,252,0.3); }
-
 /* status pills */
 .pa-status {
   display: inline-block;
@@ -677,7 +663,6 @@ input[type="file"]:hover {
   letter-spacing: 0.3px;
 }
 .pa-status-pending  { background: rgba(245,158,11,0.2);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
-.pa-status-escalated{ background: rgba(79,172,254,0.2);  color: #4facfe; border: 1px solid rgba(79,172,254,0.3); }
 .pa-status-approved { background: rgba(17,153,142,0.2);  color: #38ef7d; border: 1px solid rgba(56,239,125,0.3); }
 .pa-status-rejected { background: rgba(245,87,108,0.2);  color: #f5576c; border: 1px solid rgba(245,87,108,0.3); }
 
@@ -802,7 +787,6 @@ input[type="file"]:hover {
   font-size: 11px; font-weight: 800; letter-spacing: 0.5px; white-space: nowrap;
 }
 .rh-status-pending  { background: rgba(245,158,11,0.2);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
-.rh-status-escalated{ background: rgba(79,172,254,0.2);  color: #4facfe; border: 1px solid rgba(79,172,254,0.3); }
 .rh-status-approved { background: rgba(17,153,142,0.2);  color: #38ef7d; border: 1px solid rgba(56,239,125,0.3); }
 .rh-status-rejected { background: rgba(245,87,108,0.2);  color: #f5576c; border: 1px solid rgba(245,87,108,0.3); }
 
@@ -927,7 +911,6 @@ input[type="file"]:hover {
 }
 
 .rd-status-pending  { background: rgba(245,158,11,0.2);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
-.rd-status-escalated{ background: rgba(79,172,254,0.2);  color: #4facfe; border: 1px solid rgba(79,172,254,0.3); }
 .rd-status-approved { background: rgba(17,153,142,0.2);  color: #38ef7d; border: 1px solid rgba(56,239,125,0.3); }
 .rd-status-rejected { background: rgba(245,87,108,0.2);  color: #f5576c; border: 1px solid rgba(245,87,108,0.3); }
 

@@ -20,4 +20,4 @@ async function query(sql, params = []) {
   return rows
 }
 
-module.exports = { pool: promisePool, query }
+module.exports = { query }

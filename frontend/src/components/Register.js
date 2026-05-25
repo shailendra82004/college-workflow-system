@@ -51,7 +51,7 @@ export default function Register() {
     }
   }
 
-  const handleKeyPress = (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === "Enter") register()
   }
 
@@ -72,7 +72,7 @@ export default function Register() {
             placeholder="Enter your full name"
             value={form.name}
             onChange={set("name")}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
             disabled={loading}
           />
         </div>
@@ -84,7 +84,7 @@ export default function Register() {
             placeholder="Choose a username (e.g. enrollment number)"
             value={form.username}
             onChange={set("username")}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
             disabled={loading}
           />
         </div>
@@ -111,7 +111,7 @@ export default function Register() {
             placeholder="Choose a password"
             value={form.password}
             onChange={set("password")}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
             disabled={loading}
           />
         </div>
@@ -123,7 +123,7 @@ export default function Register() {
             placeholder="Re-enter your password"
             value={form.confirmPassword}
             onChange={set("confirmPassword")}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
             disabled={loading}
           />
         </div>

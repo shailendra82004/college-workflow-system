@@ -11,9 +11,8 @@ USE college_workflow;
 CREATE TABLE IF NOT EXISTS users (
   id         INT AUTO_INCREMENT PRIMARY KEY,
   username   VARCHAR(50)  NOT NULL UNIQUE,
-  email      VARCHAR(100) NOT NULL UNIQUE,
   name       VARCHAR(100),
-  password   VARCHAR(255) NOT NULL,          -- stored as a bcrypt hash
+  password   VARCHAR(255) NOT NULL,
   role       ENUM('STUDENT','COORDINATOR','HOD','DIRECTOR') NOT NULL,
   department ENUM('CSE','ECE','MECH','CIVIL','EEE','IT')    NOT NULL
 );
@@ -28,7 +27,6 @@ CREATE TABLE IF NOT EXISTS requests (
   current_role ENUM('COORDINATOR','HOD','DIRECTOR')              NOT NULL DEFAULT 'COORDINATOR',
   department   ENUM('CSE','ECE','MECH','CIVIL','EEE','IT')       NOT NULL,
   document     VARCHAR(200),
-  priority     ENUM('LOW','MEDIUM','HIGH','URGENT') NOT NULL DEFAULT 'MEDIUM',
   created_by   INT NOT NULL,
   created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_requests_user FOREIGN KEY (created_by) REFERENCES users(id)
@@ -69,8 +67,6 @@ INSERT INTO users (username, name, password, role, department) VALUES
   ('coordinator_eee',   'Asst. Prof. Nupur Modh',   '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'EEE'),
   ('coordinator_it',    'Asst. Prof. Mukesh Azad',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'COORDINATOR', 'IT');
 
-
-
 -- HODs
 INSERT INTO users (username, name, password, role, department) VALUES
   ('hod_cse',   'Dr. Kanak Saxena',                 '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'CSE'),
@@ -80,6 +76,6 @@ INSERT INTO users (username, name, password, role, department) VALUES
   ('hod_eee',   'Prof. C. S. Sharma',                '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'EEE'),
   ('hod_it',    'Dr. Shailendra Kumar Shrivastava',  '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'HOD', 'IT');
 
--- Director
+-- Director (department field is required by schema; CSE is a placeholder)
 INSERT INTO users (username, name, password, role, department) VALUES
   ('director', 'Dr. Y. K. Jain', '$2b$10$BwR6NDiR3pmQ5sFkBdqaQ.1Z/q7QSRz..ab8OVvvIa.nseosArUsm', 'DIRECTOR', 'CSE');

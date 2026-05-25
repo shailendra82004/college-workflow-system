@@ -16,7 +16,6 @@ export default function Login() {
   }
 
   const login = async () => {
-
     if (!username || !password) {
       setError("Invalid username or password. Please try again.")
       return
@@ -26,25 +25,19 @@ export default function Login() {
     setError("")
 
     try {
-
       const res = await api.post("/auth/login", { username, password })
-
       if (res.data.success) {
         nav("/dashboard")
       }
-
     } catch {
       setError("Invalid username or password. Please try again.")
     } finally {
       setLoading(false)
     }
-
   }
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      login()
-    }
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") login()
   }
 
   return (
@@ -67,7 +60,7 @@ export default function Login() {
             placeholder="Enter your username"
             value={username}
             onChange={e => { setUsername(e.target.value); clearError() }}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
             disabled={loading}
           />
         </div>
@@ -79,7 +72,7 @@ export default function Login() {
             placeholder="Enter your password"
             value={password}
             onChange={e => { setPassword(e.target.value); clearError() }}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
             disabled={loading}
           />
         </div>

@@ -160,8 +160,6 @@ export default function RequestDetail() {
   if (loading) return <div className="rd-page"><div className="rd-loading">Loading...</div></div>
 
   if (!request) return (
-
-     
     <div className="rd-page">
       <div className="rd-loading">{error || "Request not found."}</div>
     </div>
@@ -173,8 +171,7 @@ export default function RequestDetail() {
     <div className="rd-page">
 
       {/* Top bar */}
-      <div className="rd-topbar"> 
-
+      <div className="rd-topbar">
         <div className="rd-topbar-title">Request Details</div>
         <button className="rd-back-btn" onClick={() => nav(-1)}>← Back</button>
       </div>

@@ -36,12 +36,12 @@ export default function ClassRequests() {
 
   useEffect(() => {
     api.get("/auth/me")
-      .then(res => { setUser(res.data) })
-      .catch(() => nav("/"))
-
-    api.get("/requests/department")
+      .then(res => {
+        setUser(res.data)
+        return api.get("/requests/department")
+      })
       .then(res => { setRequests(res.data); setLoading(false) })
-      .catch(() => setLoading(false))
+      .catch(() => { setLoading(false); nav("/") })
   }, [nav])
 
   return (

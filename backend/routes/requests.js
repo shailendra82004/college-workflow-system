@@ -317,6 +317,11 @@ router.post(
         return res.status(400).json({ error: 'Request is already finalised' })
       }
 
+      // can't reject your own request
+      if (request.created_by === req.user.id) {
+        return res.status(403).json({ error: 'You cannot reject your own request' })
+      }
+
       // only the current role in the chain can act
       if (req.user.role !== request.current_role) {
         return res.status(403).json({ error: 'Forbidden' })

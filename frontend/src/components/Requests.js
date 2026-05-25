@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import api from "../services/api"
 
-const TYPE_LABELS = {
-  LEAVE:            "Leave Request",
+const TYPE_LABELS = {  LEAVE:            "Leave Request",
   LAB_ACCESS:       "Lab Access Request",
   ASSIGNMENT_EXT:   "Assignment Extension",
   LIBRARY_EXT:      "Library Book Extension",
@@ -62,7 +61,7 @@ export default function Requests() {
     api.get("/auth/me")
       .then(res => { setUser(res.data); load(res.data) })
       .catch(() => nav("/"))
-  }, [])
+  }, [nav])
 
   const quickApprove = async (id) => {
     try {
@@ -85,7 +84,7 @@ export default function Requests() {
 
   const isApprover = user && ["COORDINATOR", "HOD", "DIRECTOR"].includes(user.role)
 
-  /*APPROVER TABLE VIEW*/
+  // approver table view
   if (isApprover) {
     return (
       <div className="pa-page">
@@ -197,7 +196,7 @@ export default function Requests() {
     )
   }
 
-  /* STUDENT CARD VIEW */
+  // student card view
   return (
     <div className="rh-page">
       <div className="rh-header">
